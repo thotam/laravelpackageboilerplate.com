@@ -73,7 +73,11 @@ class UpdateSkeletonFromGitHub extends Command
 
     private function downloadZipFromGitHub(): string
     {
-        $gitHubZip = fopen("https://github.com/beyondcode/skeleton-" . $this->skeleton . "/archive/refs/heads/main.zip", 'rb');
+        if ($this->skeleton == "laravel") {
+            $gitHubZip = fopen("https://github.com/thotam/skeleton-" . $this->skeleton . "/archive/refs/heads/main.zip", 'rb');
+        } else {
+            $gitHubZip = fopen("https://github.com/beyondcode/skeleton-" . $this->skeleton . "/archive/refs/heads/main.zip", 'rb');
+        }
 
         $localZipPath = $this->temporaryDirectory->path('skeleton-' . $this->skeleton . '.zip');
         touch($localZipPath);
